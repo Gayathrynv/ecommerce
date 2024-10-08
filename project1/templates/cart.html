@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if cart_items %}
+        <h2>Your Cart Items</h2>
+        <ul>
+            {% for item in cart_items %}
+                <li>{{ item.products.name }} - Quantity: {{ item.quantity }}</li>
+                <li>{{ item.products.price }}</li>
+                <p> Total price : ${{ total_price }}</p>   
+                <a href="/delete/{{ item.id }}" style="color: red;">Delete</a>
+            {% endfor %}
+            
+    {% else %}
+        <p>Your cart is empty.</p> 
+
+          
+
+            <a href="{% url 'product_list' %}">Continue shopping</a>
+
+    {% endif %}
+    <a href="{% url 'place_order' %}">Place an Order</a>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .product{
+            border: 1px solod white;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>product_list</h1>
+    <a href="{% url 'view_cart' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+             fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+          <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5
+                   0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5
+                   .5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 
+                   0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 
+                   1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 
+                   1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+        </svg>
+      </a>
+      
+    <ul class="product-list">
+
+        
+        {% for product in products %}
+            <li class="product-item">
+                
+                <a href="{% url 'product_details' product.pk %}">products details</a>
+                
+                
+                <h1>{{product.name}}</h1>
+                <p>Price: ${{product.price}}</p>
+                <p>{{product.description}}</p>
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+
+                
+               {% if user.is_superuser %}
+                    <a href="{% url 'edit' product.id %}" class="edit-btn">Edit</a>
+
+                    <form action="{% url 'delete' product.id %}" method="post">
+
+                        
+                        {% csrf_token %}
+                        
+                        <button type="submit"  class="delete-btn" onclick="return confirm('Are you sure you want to delete')">delete</button>
+                    </form>
+              {% endif %}
+
+                
+            </li>
+        {% endfor %}
+        
+         
+    </ul>    
+    
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="product-list">
+
+        
+        {% for category in categorys %}
+            <li class="product-item">
+                
+                <a href="{% url 'product_details' product.pk %}">products details</a>
+                
+                
+                <h1>{{produ.name}}</h1>
+                <p>Price: ${{product.price}}</p>
+                <p>{{product.description}}</p>
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+
+                
+               
+
+                
+            </li>
+        {% endfor %}
+        
+         
+    </ul>  
+</body>
+</html>
